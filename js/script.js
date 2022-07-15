@@ -1,55 +1,30 @@
-window.addEventListener('DOMContentLoaded', () => {
-    const tabs = require('./modules/tabs'),
-          modal = require('./modules/modal'),
-          timer = require('./modules/timer'),
-          cards = require('./modules/cards'),
-          calc = require('./modules/calc'),
-          forms = require('./modules/forms'),
-          slider = require('./modules/slider');
+import tabs from './modules/tabs';
+import modal from './modules/modal';
+import timer from './modules/timer';
+import cards from './modules/cards';
+import calc from './modules/calc';
+import forms from './modules/forms';
+import slider from './modules/slider';
+import {openModal} from './modules/modal';
 
-    tabs();
-    modal();
-    timer();
+window.addEventListener('DOMContentLoaded', () => {
+
+    const modalTimerId = setTimeout(() => openModal('.modal', modalTimerId), 300000);
+
+    tabs('.tabheader__item', '.tabcontent', '.tabheader__items', 'tabheader__item_active');
+    modal('[data-modal]', '.modal', modalTimerId);
+    timer('.timer', '2022-10-10');
     cards();
     calc();
-    forms();
-    slider();
-
+    forms('form', modalTimerId);
+    slider({
+        container: '.offer__slider',
+        slide: '.offer__slide',
+        prevArrow: '.offer__slider-prev',
+        nextArrow: '.offer__slider-next',
+        totalCounter: '#total',
+        currentCounter: '#current',
+        wrapper: '.offer__slider-wrapper',
+        field: '.offer__slider-inner'
+    });
 });
-
-/*
- simple version of slider
-showSlides(slideIndex);
-if(slides.length < 10) {
-    total.textContent = `0${slides.length}`;
-} else {
-    total.textContent = slides.length;
-}
-function showSlides(n) {
-    if (n > slides.length) {
-        slideIndex = 1;
-    }
-
-    if (n < 1) {
-        slideIndex = slides.length;
-    }
-
-    slides.forEach(item => item.style.display = 'none');
-
-    slides[slideIndex - 1].style.display = 'block';
-
-    if(slides.length < 10) {
-        current.textContent = `0${slideIndex}`;
-    } else {
-        current.textContent = slideIndex;
-    }
-}
-function plusSlides(n) {
-    showSlides(slideIndex += n);
-}
-prev.addEventListener('click', () => {
-    plusSlides(-1);
-});
-next.addEventListener('click', () => {
-    plusSlides(1);
-});*/
